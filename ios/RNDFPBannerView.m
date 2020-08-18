@@ -55,6 +55,11 @@
 - (void)loadBanner {
     GADRequest *request = [GADRequest request];
     request.testDevices = _testDevices;
+    
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect frame = [keyWindow frame];
+    CGFloat width = frame.size.width;
+    _bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width);
     [_bannerView loadRequest:request];
 }
 
