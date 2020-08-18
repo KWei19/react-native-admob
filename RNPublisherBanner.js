@@ -26,7 +26,7 @@ class PublisherBanner extends Component {
   loadBanner() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this._bannerView),
-      UIManager.getViewManagerConfig('RNDFPBannerView').Commands.loadBanner,
+      UIManager.getViewManagerConfig('RNGADBannerView').Commands.loadBanner,
       null
     );
   }
@@ -56,7 +56,7 @@ class PublisherBanner extends Component {
 
   render() {
     return (
-      <RNDFPBannerView
+      <RNGADBannerView
         {...this.props}
         style={[this.props.style, this.state.style]}
         onSizeChange={this.handleSizeChange}
@@ -116,8 +116,8 @@ PublisherBanner.propTypes = {
   onAppEvent: func,
 };
 
-const RNDFPBannerView = requireNativeComponent(
-  'RNDFPBannerView',
+const RNGADBannerView = requireNativeComponent(
+  'RNGADBannerView',
   PublisherBanner
 );
 

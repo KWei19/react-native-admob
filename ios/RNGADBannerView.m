@@ -28,7 +28,9 @@
         super.backgroundColor = [UIColor clearColor];
         UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
         UIViewController *rootViewController = [keyWindow rootViewController];
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        CGRect frame = [keyWindow frame];
+        CGFloat width = frame.size.width;
+        _bannerView = [[GADBannerView alloc] initWithAdSize:GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width)];     
         _bannerView.delegate = self;
         _bannerView.adSizeDelegate = self;
         _bannerView.rootViewController = rootViewController;
