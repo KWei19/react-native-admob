@@ -1,7 +1,11 @@
 package com.sbugert.rnadmob;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
@@ -127,6 +131,14 @@ class ReactPublisherAdView extends ReactViewGroup implements AppEventListener {
                         event);
     }
 
+    private AdSize getAdSize() {
+        int widthPixels  = Resources.getSystem().getDisplayMetrics().widthPixels;
+        float density = Resources.getSystem().getDisplayMetrics().density;
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(getContext(), adWidth);
+    }
+
     public void loadBanner() {
         ArrayList<AdSize> adSizes = new ArrayList<AdSize>();
         if (this.adSize != null) {
@@ -142,10 +154,10 @@ class ReactPublisherAdView extends ReactViewGroup implements AppEventListener {
             adSizes.add(AdSize.BANNER);
         }
 
-        AdSize[] adSizesArray = adSizes.toArray(new AdSize[adSizes.size()]);
-        //AdSize adaptiveSize = getAdSize();
-
-        this.adView.setAdSizes(adSizesArray);
+//        AdSize[] adSizesArray = adSizes.toArray(new AdSize[adSizes.size()]);
+//        this.adView.setAdSizes(adSizesArray);
+        AdSize adaptiveSize = getAdSize();
+        this.adView.setAdSizes(adaptiveSize, AdSize.BANNER);
 
         PublisherAdRequest.Builder adRequestBuilder = new PublisherAdRequest.Builder();
         if (testDevices != null) {
