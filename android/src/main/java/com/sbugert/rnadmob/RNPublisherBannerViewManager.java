@@ -143,6 +143,8 @@ class ReactPublisherAdView extends ReactViewGroup implements AppEventListener {
         }
 
         AdSize[] adSizesArray = adSizes.toArray(new AdSize[adSizes.size()]);
+        //AdSize adaptiveSize = getAdSize();
+
         this.adView.setAdSizes(adSizesArray);
 
         PublisherAdRequest.Builder adRequestBuilder = new PublisherAdRequest.Builder();
