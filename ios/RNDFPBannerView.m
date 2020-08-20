@@ -65,7 +65,7 @@
 
 - (void)setValidAdSizes:(NSArray *)adSizes
 {
-    __block NSMutableArray *validAdSizes = [[NSMutableArray alloc] initWithCapacity:adSizes.count];
+    __block NSMutableArray *validAdSizes = [[NSMutableArray alloc] initWithCapacity:adSizes.count+1];
     [adSizes enumerateObjectsUsingBlock:^(id jsonValue, NSUInteger idx, __unused BOOL *stop) {
         GADAdSize adSize = [RCTConvert GADAdSize:jsonValue];
         if (GADAdSizeEqualToSize(adSize, kGADAdSizeInvalid)) {
@@ -74,6 +74,10 @@
             [validAdSizes addObject:NSValueFromGADAdSize(adSize)];
         }
     }];
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect frame = [keyWindow frame];
+    CGFloat width = frame.size.width;
+    [validAdSizes addObject:NSValueFromGADAdSize(GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width))];
     _bannerView.validAdSizes = validAdSizes;
 }
 
